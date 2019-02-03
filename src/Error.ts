@@ -2,24 +2,8 @@ import { BrsType, ValueKind } from "./brsTypes";
 import { Location } from "./lexer";
 
 export class BrsError extends Error {
-    constructor(message: string, location: Location) {
-        let formattedLocation: string;
-
-        let file = location.file
-            ? `${location.file}:`
-            : "Line";
-
-        if (location.start.line === location.end.line) {
-            formattedLocation = `${file} ${location.start.line}:${location.start.column}`;
-            if (location.start.column !== location.end.column) {
-                formattedLocation += `-${location.end.column}`;
-            }
-        } else {
-            formattedLocation = `${file} ${location.start.line}:${location.start.column}-${location.end.line}:${location.end.line}`;
-        }
-
-        let output = `[${formattedLocation}] ${message}`;
-        super(output);
+    constructor(message: string, readonly location: Location) {
+        super(message);
     }
 }
 
